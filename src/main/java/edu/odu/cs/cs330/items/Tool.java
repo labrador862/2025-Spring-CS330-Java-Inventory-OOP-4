@@ -1,5 +1,7 @@
 package edu.odu.cs.cs330.items;
 
+import java.util.Objects;
+
 /**
  * This class represents one tool--as found in most video games. This includes
  * pickaxes and shovels.
@@ -75,6 +77,11 @@ public class Tool extends Equippable implements Item {
         Tool cpy = new Tool();
 
         cpy.setName(this.name);
+        cpy.setDurability(this.getDurability());
+        cpy.setSpeed(this.speed);
+        cpy.setMaterial(this.getMaterial());
+        cpy.setModifier(this.getModifier());
+        cpy.setModifierLevel(this.getModifierLevel());
 
         return cpy;
     }
@@ -93,8 +100,11 @@ public class Tool extends Equippable implements Item {
         }
 
         Tool rhsItem = (Tool) rhs;
-
-        return false;
+         return Objects.equals(this.name, rhsItem.name)
+            && Objects.equals(this.getMaterial(), rhsItem.getMaterial())
+            && Objects.equals(this.getModifier(), rhsItem.getModifier())
+            && this.speed == rhsItem.speed
+            && this.getModifierLevel() == rhsItem.getModifierLevel();
     }
 
     /**
@@ -119,6 +129,14 @@ public class Tool extends Equippable implements Item {
     @Override
     public String toString()
     {
-        return "String.format(FMT_STR, ...)";
+        return String.format(
+            FMT_STR,
+            this.name,
+            this.getDurability(),
+            this.speed,
+            this.getMaterial(),
+            this.getModifier(),
+            this.getModifierLevel()
+        );
     }
 }
